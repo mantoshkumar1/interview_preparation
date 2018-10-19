@@ -1,7 +1,7 @@
 """
-Implement a basic calculator to evaluate a simple expression string.
+Implement a basic calculator to evaluate a simple expression arr_str.
 
-The expression string contains only non-negative integers, +, -, *, / operators and empty spaces . The integer division should truncate toward zero.
+The expression arr_str contains only non-negative integers, +, -, *, / operators and empty spaces . The integer division should truncate toward zero.
 
 Example 1:
 
