@@ -23,17 +23,19 @@ class Solution:
         :type s: str
         :rtype: int
         """
-
-        # ch_dict = {'a': [unique_status, index]}
-        ch_dict = defaultdict(lambda: [1, 0])
-
-        for index, ch in enumerate(s):
-            if ch in ch_dict:
-                ch_dict[ch][0] = 0
+        ch_dict = {}  # count, index
+        for index, c in enumerate(s):
+            if c not in ch_dict:
+                ch_dict[c] = [1, index]
             else:
-                ch_dict[ch][1] = index
+                ch_dict[c][0] += 1
+        
+        for c in s:
+            if ch_dict[c][0] == 1:
+                return ch_dict[c][1]
+            
+        return -1
 
-        return sorted(ch_dict.values(), key=lambda x: (-x[0], x[1]))[0][1]
 
 a = Solution()
 a.firstUniqChar("leetcode")
