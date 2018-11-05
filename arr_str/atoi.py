@@ -63,46 +63,53 @@ INT_MAX = int(math.pow(2, 31)) - 1
 INT_MIN = -int(math.pow(2, 31))
 
 
+class ListIsCoveredException(Exception):
+    pass
+
+
 class Solution:
-    def get_num(self, sign, val=None):
-        if val is not None:  # val could be zero
-            return val if sign == '+' else -val
+    def get_sign(self, str):
+        '''returns sign and next index'''
+        i = 0
         
-        if sign == '+':
-            return INT_MAX
+        while i < len(str) and str[i].isspace():
+            i += 1
         
-        return INT_MIN
+        if i == len(str):
+            return 1, i
+            
+        if str[i] == '-':
+            return -1, i+1
+        elif str[i] == '+':
+            return 1, i+1
+        
+        return 1, i
+    
+    def get_next_digit(self, str, index):
+        while index < len(str) and not str[index].isdigit():
+            index += 1
+        if index == len(str):
+            raise ListIsCoveredException
+        
+        return str[index], index+1
     
     def myAtoi(self, str):
         """
         :type str: str
         :rtype: int
         """
-        
-        str = str.strip()
-        if len(str) == 0:
-            return 0
-        
-        i = 0
-        
-        sign = '+'
-        if str[0] == '-':
-            sign = '-'
-        
-        if str[0] in '+-':
-            i += 1
-        
-        if i >= len(str) or not str[i].isdigit():
-            return 0
+        sign, index = self.get_sign(str)
         
         num = 0
-        while i < len(str) and str[i].isdigit():
-            num = num * 10 + int(str[i])
-            if num > INT_MAX:
-                return self.get_num(sign)
-            i += 1
-        
-        return self.get_num(sign, num)
+        while index < len(str):
+            try:
+                n, index = self.get_next_digit(str, index)
+            except ListIsCoveredException:
+                break
+            
+            num = 10*num + int(n)
+            
+        return sign * num
 
 
 a = Solution()
@@ -111,3 +118,4 @@ assert 0 == a.myAtoi("+")
 assert 0 == a.myAtoi("     ")
 assert 0 == a.myAtoi("    0000000000000   ")
 assert -2147483647 == a.myAtoi("-2147483647")
+assert -2147483647 == a.myAtoi("-   2147   483  647")

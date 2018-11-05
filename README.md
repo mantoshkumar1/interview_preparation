@@ -44,3 +44,16 @@ set([1000, 1])
 [1000, 1]
 
 ``` 
+
+* a or b: If a is True then b is not even checked.
+* a and b: If a is False then b is not even checked.
+```python
+>>> a = [10, 20, 30]
+>>> if a[0] < 0 and a[20000]:
+>>>     print("won't be printed as 2nd condition not even checked, otherwise would have thrown IndexError")
+
+>>> if a[0] > 0 or a[20000]:
+>>>     print("would be printed as 2nd condition not even checked, otherwise would have thrown IndexError")
+```
+
+
