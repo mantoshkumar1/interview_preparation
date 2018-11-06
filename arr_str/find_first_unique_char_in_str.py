@@ -30,7 +30,7 @@ class Solution:
             else:
                 ch_dict[c][0] += 1
         
-        for c in s:
+        for c in s:  # note here we are traversing input str
             if ch_dict[c][0] == 1:
                 return ch_dict[c][1]
             
