@@ -4,26 +4,23 @@ For every purchase of ice-creams he gets 1 unit of money which could be used to 
 
 Find the number of ice-creams he can buy.
 """
+
+
 class Solution:
     def approach2(self, money, cost_per_ice):
-        coupon_money = 0
         ans = 0
         while money > 0:
-            if coupon_money == cost_per_ice:
-                coupon_money = 1
-                ans += 1
-                continue
-            
-            if money >= cost_per_ice:
-                ans += 1
-                money -= cost_per_ice
-                coupon_money += 1
-            else:
+            if money < cost_per_ice:
                 break
-    
-        ans = ans + (money+coupon_money)//cost_per_ice
+
+            ans += 1
+            money = money - cost_per_ice
+
+            # he gets one coupon
+            money += 1
+            
         return ans
-        
+    
     def get_max_num_ice_creams(self, money, cost_per_ice, ans=0):
         if money < cost_per_ice:
             return ans
@@ -36,10 +33,11 @@ class Solution:
         money = money + coupon_money
         
         return self.get_max_num_ice_creams(money, cost_per_ice, ans)
-        
+    
     def get_num_ice_creams(self, money, cost_per_ice):
         return self.get_max_num_ice_creams(money, cost_per_ice)
-    
+
+
 a = Solution()
 assert 4 == a.get_num_ice_creams(5, 2)
 assert 5 == a.get_num_ice_creams(6, 2)
