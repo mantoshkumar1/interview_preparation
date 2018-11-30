@@ -12,12 +12,12 @@ StockSticker contains stocks with the highest prices up to  initial size of the 
 import itertools
 from queue import PriorityQueue
 
-count = itertools.count()
-
 
 class Stock:
+    _counter = itertools.count()
+    
     def __init__(self, name, price):
-        self.count = count.__next__()
+        self.count = next(Stock._counter)
         self.price = price
         self.name = name
         self.deleted = False
@@ -66,10 +66,13 @@ class StockSticker:
                 continue
             active_stocks.append(stock)
         
+        # putting active stocks into priority queue
         for s in active_stocks:
             self.pq.put(s)
-            
+        
+        # preparing ans
         ans = [s.name for s in active_stocks[:-k-1:-1]]
+        
         return ans
         
     def addOrUpdate(self, stock_name, price):

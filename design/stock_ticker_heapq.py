@@ -13,12 +13,11 @@ import itertools
 import heapq
 
 
-count = itertools.count()
-
-
 class Stock:
+    _counter = itertools.count()
+    
     def __init__(self, name, price):
-        self.count = count.__next__()
+        self.count = next(Stock._counter)
         self.price = price
         self.name = name
         self.deleted = False
