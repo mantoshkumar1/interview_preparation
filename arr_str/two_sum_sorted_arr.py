@@ -24,6 +24,8 @@ class Solution:
         Time complexity: O(n)
         Space complexity: O(1)
 
+        This approach will only work for sorted arr
+
         :type numbers: List[int]
         :type target: int
         :rtype: List[int]
@@ -47,20 +49,20 @@ class Solution:
         """
         Time and space complexity: O(n)
 
+        This approach will work for both sorted and unsorted arr
+
         :type numbers: List[int]
         :type target: int
         :rtype: List[int]
         """
-        # num_dict = {num: (target_num-num, index_num)}
+        # num_dict = {num: index_num}
         num_dict = dict()
 
         for index, num in enumerate(numbers):
-            rest_num = target - num
-
-            if num_dict.get(rest_num):
-                return [num_dict[rest_num][1] + 1, index + 1]
-
-            num_dict[num] = (rest_num, index)
+            if num not in num_dict:
+                num_dict[target-num] = index
+            else:
+                return [num_dict[num], index]
 
         return [-1, -1]
 
@@ -70,3 +72,5 @@ a = Solution()
 assert [1, 2] == a.twoSum([1, 3, 5, 8], 4)
 assert [3, 4] == a.twoSum([1, 3, 5, 8], 13)
 assert [2, 3] == a.twoSum([1, 3, 5, 8], 8)
+
+assert [1, 2] == a.twoSum_approach2([3, 2, 4], 6)

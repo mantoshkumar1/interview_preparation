@@ -67,6 +67,9 @@ class Solution:
         :type k: int
         :rtype: int
         """
+        # for reusing it without making new class instance
+        self.root = None
+
         self.create_bst(nums)
         
         nums_len = len(nums)
@@ -76,3 +79,4 @@ class Solution:
 
 a = Solution()
 assert 1 == a.findKthLargest([2, 1], 2)
+assert 1 == a.findKthLargest([2, 1, 1], 2)
