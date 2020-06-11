@@ -71,3 +71,4 @@ class Calculator:
 a = Calculator()
 assert (1+3-2+111/1*2/4*187) == a.calculate(
     "  1 + 3 - 2     + 111 / 1 * 2  / 4  * 187    ")
+
